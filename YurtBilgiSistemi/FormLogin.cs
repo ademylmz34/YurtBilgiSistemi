@@ -21,7 +21,8 @@ namespace YurtBilgiSistemi
         private void btnRegister_Click(object sender, EventArgs e)
         {
             connection.Open();
-            NpgsqlCommand cmd = new NpgsqlCommand("Select username,password from dormitory.users", connection);
+            NpgsqlCommand cmd = new NpgsqlCommand("Select username,password from dormitory.users where username=@username", connection);
+            cmd.Parameters.AddWithValue("@username", txtUsername.Text);
             NpgsqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
